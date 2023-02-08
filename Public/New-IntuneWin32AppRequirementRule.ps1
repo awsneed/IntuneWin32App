@@ -51,19 +51,19 @@ function New-IntuneWin32AppRequirementRule {
 
         [parameter(Mandatory = $false, HelpMessage = "Specify the minimum free disk space in MB as a requirement for the Win32 app.")]
         [ValidateNotNullOrEmpty()]
-        [int]$MinimumFreeDiskSpaceInMB,
+        [int]$MinimumFreeDiskSpaceInMB = 0,
 
         [parameter(Mandatory = $false, HelpMessage = "Specify the minimum required memory in MB as a requirement for the Win32 app.")]
         [ValidateNotNullOrEmpty()]
-        [int]$MinimumMemoryInMB,
+        [int]$MinimumMemoryInMB = 0,
 
         [parameter(Mandatory = $false, HelpMessage = "Specify the minimum number of required logical processors as a requirement for the Win32 app.")]
         [ValidateNotNullOrEmpty()]
-        [int]$MinimumNumberOfProcessors,
+        [int]$MinimumNumberOfProcessors = 0,
 
         [parameter(Mandatory = $false, HelpMessage = "Specify the minimum CPU speed in Mhz (as an integer) as a requirement for the Win32 app.")]
         [ValidateNotNullOrEmpty()]
-        [int]$MinimumCPUSpeedInMHz
+        [int]$MinimumCPUSpeedInMHz = 0
     )
     Process {
         # Construct table for supported architectures
@@ -91,32 +91,10 @@ function New-IntuneWin32AppRequirementRule {
         $RequirementRule = [ordered]@{
             "applicableArchitectures" = $ArchitectureTable[$Architecture]
             "minimumSupportedWindowsRelease" = $OperatingSystemTable[$MinimumSupportedWindowsRelease]
-        }
-
-        # Add additional requirement rule details if specified on command line
-        if ($PSBoundParameters["MinimumFreeDiskSpaceInMB"]) {
-            $RequirementRule.Add("minimumFreeDiskSpaceInMB", $MinimumFreeDiskSpaceInMB)
-        }
-        else {
-            $RequirementRule.Add("minimumFreeDiskSpaceInMB", "null")
-        }
-        if ($PSBoundParameters["MinimumMemoryInMB"]) {
-            $RequirementRule.Add("minimumMemoryInMB", $MinimumMemoryInMB)
-        }
-        else {
-            $RequirementRule.Add("minimumMemoryInMB", "null")
-        }
-        if ($PSBoundParameters["MinimumNumberOfProcessors"]) {
-            $RequirementRule.Add("minimumNumberOfProcessors", $MinimumNumberOfProcessors)
-        }
-        else {
-            $RequirementRule.Add("minimumNumberOfProcessors", "null")
-        }
-        if ($PSBoundParameters["MinimumCPUSpeedInMHz"]) {
-            $RequirementRule.Add("minimumCpuSpeedInMHz", $MinimumCPUSpeedInMHz)
-        }
-        else {
-            $RequirementRule.Add("minimumCpuSpeedInMHz", "null")
+            "minimumFreeDiskSpaceInMB" = $MinimumFreeDiskSpaceInMB
+            "minimumMemoryInMB" = $MinimumMemoryInMB
+            "minimumNumberOfProcessors" = $MinimumNumberOfProcessors
+            "minimumCpuSpeedInMHz" = $MinimumCPUSpeedInMHz
         }
 
         return $RequirementRule

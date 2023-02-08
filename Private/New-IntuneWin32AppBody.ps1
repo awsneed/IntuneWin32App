@@ -249,10 +249,10 @@ function New-IntuneWin32AppBody {
                     "deviceRestartBehavior" = $RestartBehavior
                 }
                 "minimumSupportedWindowsRelease" = $MinimumSupportedWindowsRelease
-                "minimumFreeDiskSpaceInMB" = if ($RequirementRule["minimumFreeDiskSpaceInMB"]) { $RequirementRule["minimumFreeDiskSpaceInMB"] } else { "" }
-                "minimumMemoryInMB" = if ($RequirementRule["minimumMemoryInMB"]) { $RequirementRule["minimumMemoryInMB"] } else { "" }
-                "minimumNumberOfProcessors" = if ($RequirementRule["minimumNumberOfProcessors"]) { $RequirementRule["minimumNumberOfProcessors"] } else { "" }
-                "minimumCpuSpeedInMHz" = if ($RequirementRule["minimumCpuSpeedInMHz"]) { $RequirementRule["minimumCpuSpeedInMHz"] } else { "" }
+                "minimumFreeDiskSpaceInMB" = if ($RequirementRule.Contains("minimumFreeDiskSpaceInMB")) { $RequirementRule["minimumFreeDiskSpaceInMB"] } else { "" }
+                "minimumMemoryInMB" = if ($RequirementRule.Contains("minimumMemoryInMB")) { $RequirementRule["minimumMemoryInMB"] } else { "" }
+                "minimumNumberOfProcessors" = if ($RequirementRule.Contains("minimumNumberOfProcessors")) { $RequirementRule["minimumNumberOfProcessors"] } else { "" }
+                "minimumCpuSpeedInMHz" = if ($RequirementRule.Contains("minimumCpuSpeedInMHz")) { $RequirementRule["minimumCpuSpeedInMHz"] } else { "" }
                 "msiInformation" = @{
                     "packageType" = $MSIInstallPurpose
                     "productCode" = $MSIProductCode
